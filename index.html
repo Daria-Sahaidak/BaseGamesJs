@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous"></script>
+    <style>
+        .game-block{
+            border: 1px solid darkblue;
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+            /*float: left;*/
+        }
+        .alone-game-result, .guess-game-request {
+            margin: 10px;
+            margin-left: 0px;
+        }
+
+        .guess-game-button{
+            margin-bottom: 5px;
+        }
+        .restart-exit-button{
+            margin-top: 5px;
+        }
+        .krestik-nolik-input{
+            width: 25px;
+            height: 25px;
+            /*margin-left: 2px;*/
+            /*margin-right: 2px;*/
+            margin: 2px;
+        }
+        .hidden{
+            display: none;
+        }
+
+    </style>
+    <script>
+        let a = 10;
+        let b = 7;
+
+        console.log("a+b=" + (a + b));
+        // alert("world");
+        if (a > b) {
+            console.log("min = " + b);
+        } else {
+            console.log("min = " + a);
+        }
+
+        console.log("min = " + ((a > b) ? b : a));
+
+        for (let i = 1; i <= 5; i++) {
+            console.log(i);
+        }
+        let i = 1;
+        while (i <= 5) {
+            console.log(i);
+            i++;
+        }
+        i = 1;
+        do {
+            console.log(i);
+            i++;
+        } while (i <= 5);
+
+        switch (a) {
+            case 7: console.log("seven");
+            break;
+            case 10: console.log("ten");
+            break;
+            case 20: console.log("twenty");
+            break;
+        }
+        b = 3;
+        switch (b) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+                console.log("odd");
+                break;
+            case 2:
+            case 4:
+            case 6:
+            case 8:
+                console.log("even");
+                break;
+        }
+        function hello() {
+            alert("Hello world!");
+            return false;
+        }
+        //hello();
+        $(function () {
+            //$("input").hide();
+            // $("input").change(function () {
+            //     console.log($("input").val());
+            // });
+            // $("input[type=submit]").click(hello);
+            // $("input[type=submit]").click(hello())
+            // $("input[type=submit]").click(false)
+            // $("input[type=submit]").click( function () {
+            //     alert($("input").val());
+            // });
+            // $("#superSubmit").click( function () {
+            //     let num = parseInt($("#superInput").val());
+            //     alert(num + 1);
+            //     return false;
+            // });
+
+           //  $("#sending-game-main-part").hide();
+           //  $("#guess-game-main-part").hide();
+           //
+           // $("#alone-game-restart-exit-div").hide();
+           // $("#sending-game-restart-exit-div").hide();
+           // $("#guess-game-restart-exit-div").hide();
+
+            $("input").mouseenter(function (e) {
+                let input = $(e.target);
+                input.css("box-shadow", "0 0 5px rgba(0, 0, 0, 0.5)");
+            });
+
+
+            $("input").mouseleave(function (e) {
+                let input = $(e.target);
+                input.css("box-shadow", "0 0 5px rgba(0, 0, 0, 0)");
+            });
+
+            //$(".game-block").focus();
+
+            // $("p").live(function (e) {
+            //     let p = $(e.target);
+            //     p.css("border-color", "yellow");
+            //     return false;
+            // });
+
+            // $("input").select(function (e) {
+            //     let input = $(e.target);
+            //     input.css("color", "green");
+            // });
+
+            // $("input").keypress(function (e) {
+            //     console.log("keypress " + e.which);
+            // });
+            // $("input").keydown(function (e) {
+            //     console.log("keydown " + e.which);
+            // });
+            // $("input").keyup(function (e) {
+            //     console.log("keyup " + e.which);
+            // });
+
+            $("input, button").parent(".game-block").css("border", "red 1px solid");
+            // $("input").parent().css("border-color", "red").css("border-width", "1px");
+
+
+
+           function onSubmit(e){
+               let $button = $(e.target);
+          //     alert($button.parent(".game-block").data("name"));
+               // let id = $button.attr("id");
+               // let gameName = id.slice(0,-12);
+               let gameName = $button.parents(".game-block").data("name");
+               $("#" + gameName + "-game-submit").hide();
+               $("#" + gameName + "-game-restart-exit-div").show();
+               $("#" + gameName + "-game-main-part").show();
+               return false;
+           }
+
+           function onExit(e){
+               let $button = $(e.target);
+               let gameName = $button.parents(".game-block").data("name");
+               $("#" + gameName + "-game-submit").show();
+               $("#" + gameName + "-game-restart-exit-div").hide();
+               $("#" + gameName + "-game-main-part").hide();
+               return false;
+           }
+
+            $("#sending-game-submit").click(onSubmit);
+           // $("#sending-game-submit").unbind();
+
+            $("#guess-game-submit").click(onSubmit);
+
+            $("#krestik-nolik-game-submit").click(onSubmit);
+
+            $("#alone-game-restart").click(aloneGameSubmit);
+
+
+
+            $("#alone-game-exit").click(onExit);
+
+            $("#sending-game-exit").click(onExit);
+            $("#sending-game-restart").click(function () {
+                alert("Компьютер загадал новое число, пробуйте!")
+                y = Math.floor(Math.random()*100);
+            });
+
+            $("#guess-game-exit").click(onExit);
+            $("#guess-game-restart").click(function () {
+                left9 = 0;
+                right9 = 100;
+                num = Math.floor(Math.random()*100);
+                request(num);
+            });
+
+            $("#krestik-nolik-game-exit").click(function (e) {
+                $("#krestik-nolik-game-restart").click();
+                return onExit(e);
+            });
+
+            $("#krestik-nolik-game-restart").click(function () {
+                for (let j = 0; j < 3; j++){
+                    for (let i = 0; i < 3; i++){
+                        field[j][i] = " ";
+                        $("#input-" + (j + 1) + "-" + (i + 1)).val(" ");
+                    }
+                }
+            });
+
+
+            //  8: Компьютер загадывает, я отгадываю
+            let y = Math.floor(Math.random()*100);
+            $("#superSubmit").click( function () {
+                let h = parseInt($("#superInput").val());
+                if (y === h) {
+                    alert("Ура! Вы нашли правильное число");
+                } else if (y < h) {
+                    alert("Нужное число меньше. Попробуйте еще раз:)");
+                } else if (y > h) {
+                    alert("Нужное число больше. Попробуйте еще раз:)");
+                }
+                return false;
+            });
+
+            //  9: Я загадываю, компьютер отгадывает
+            let num = Math.floor(Math.random()*100);
+            let right9 = 100;
+            let left9 = 0;
+            function request(value) {
+                if (typeof value === "string") {
+                    $("#guess-game-request").html(value);
+                } else {
+                    $("#guess-game-request").html("Ваше число <b>" + value + "</b>?");
+                }
+            }
+            request(num);
+
+            function random(left, right) {
+                return Math.floor(Math.random()*(right - 1 - left) + left + 1);
+            }
+            $("#superButtonLess").click( function () {
+                right9 = num;
+                num = random(left9, right9);
+                request(num);
+                return false;
+            });
+            $("#superButtonMore").click( function (e) {
+                left9 = num;
+                num = random(left9, right9);
+                request(num);
+                return false;
+            });
+            $("#superButtonSame").click( function () {
+                request("Фух, наконец-то! Думал, что уже не угадаю");
+                return false;
+            });
+
+            function aloneGameSubmit() {
+                $("#alone-game-main-part").show();
+                $("#alone-game-submit").hide();
+                let x = Math.floor(Math.random()*100);
+                let left = 0;
+                let right = 100;
+                let middle;
+                let j = 0;
+                while (middle !== x){
+                    j++;
+                    middle = Math.round((right + left) / 2);
+                    if (x > middle) {
+                        left = middle;
+                    } else if (x < middle) {
+                        right = middle;
+                    }
+                }
+
+                $("#alone-game-main-part").html("Компьютер нашел нужное число <b>" + x + "</b> за <b>" + j + "</b> попыток");
+                $("#alone-game-restart-exit-div").show();
+                return false;
+            }
+
+            $("#alone-game-submit").click(aloneGameSubmit);
+
+            let s = "";
+            for (let j = 0; j < 3; j++){
+                s += "<div>";
+                for (let i = 0; i < 3; i++){
+                    s += "<input type='button' id='input-" + (j + 1) + "-" + (i + 1) +  "' class='krestik-nolik-input' value=' '>";
+                }
+                s += "</div>";
+            };
+
+            $("#krestik-nolik-game-main-part").html(s);
+
+            $(".krestik-nolik-input").click(krestikClick);
+
+            let count = 0;  // let k = false;
+            function krestikClick(e) {
+                // alert(e);
+                // alert(e.target);
+                // alert($(e.target));
+                //$(e.target).css("display", "none");
+                //$(e.target).css("visibility", "hidden");
+                count++;  // k = !k;
+                let value = (count % 2 !== 0) ? "x" : "o";
+                // if (k % 2 !== 0){    // if (k == true)  то же самое, что и if (k)
+                //     value = "x";
+                // } else {
+                //     value = "o";
+                // }
+                let $input = $(e.target);
+                if ($input.val() === " ") {
+                    $input.val(value);
+                    let id = $input.attr("id");
+                    let j = parseInt(id[6]) - 1;
+                    let i = parseInt(id[8]) - 1;
+                    field[j][i] = value;
+                    comparison(field[j][i], $input.val());
+                } else {
+                    count--;
+                }
+
+
+                fullArrayComparison(field);
+            };
+
+            function comparison(fieldElement, inputElement){
+                if (fieldElement !== inputElement){
+                    alert("Символы не совпадают");
+                } else {
+                    return;
+                }
+            }
+
+            function fullArrayComparison(arrayField){
+                for (let j = 0; j < 3; j++){
+                    for (let i = 0; i < 3; i++){
+                        if (arrayField[j][i] !== $("#input-" + (j + 1) + "-" + (i + 1)).val()){
+                            alert("Символы не совпадают");
+                        } else {
+                            return;
+                        }
+                    }
+                }
+            }
+
+
+
+
+        });
+
+        let field = [
+            [" ", " ", " "],
+            [" ", " ", " "],
+            [" ", " ", " "],
+        ];
+
+        //  1
+        let c = 7;
+        b = 7;
+        a = 5;
+        if (a >= b && a >= c) {
+            console.log("max = " + a);
+        } else if (b >= a && b >= c) {
+            console.log("max = " + b);
+        } else if (c >= a && c >= b) {
+            console.log("max = " + c);
+        }
+
+        //  2
+        a = 4;
+        b = 3;
+        c = 1;
+        if (a <= b && a <= c) {
+            console.log(a);
+            if (b < c) {
+                console.log(b);
+                console.log(c);
+            } else {
+                console.log(c);
+                console.log(b);
+            }
+        } else if (b <= a && b <= c) {
+            console.log(b);
+            if (a < c) {
+                console.log(a);
+                console.log(c);
+            } else {
+                console.log(c);
+                console.log(a);
+            }
+        } else if (c <= a && c <= b) {
+            console.log(c);
+            if (a < b) {
+                console.log(a);
+                console.log(b);
+            } else {
+                console.log(b);
+                console.log(a);
+            }
+        }
+
+        //  3.1
+        b = 7;
+        //let d = b % 2;
+        switch (b % 2) {
+            case 0:
+                console.log("number b is even");
+                break;
+            case 1:
+                console.log("number b is odd");
+                break;
+        }
+
+        //  3.2
+        b = 8;
+        if (b % 2 === 0) {
+            console.log("number b is even");
+        } else {
+            console.log("number b is odd");
+        }
+
+        //  4
+        for (let i = 10; i <= 20; i++) {
+            if (i % 2 === 0) {
+                console.log(i);
+            }
+        }
+
+        //  5
+        i = 31;
+        while (i >= 21) {
+
+            console.log(i);
+            i -= 2;
+        }
+
+        //  6
+        i = 1;
+        do {
+            i += 3;
+            console.log(i);
+        } while (i < 10);
+
+        //  7
+
+
+
+
+
+
+
+
+
+    </script>
+</head>
+
+<body>
+<form>
+
+    <div class="game-block alone-game"  data-name="alone">
+        <p>Alone game: computer searches for the random number</p>
+        <div>
+            <input type="submit" id="alone-game-submit" class="submit" value="Запуск игры">
+        </div>
+
+        <div id="alone-game-main-part" class="alone-game-result hidden">
+
+        </div>
+        <div id="alone-game-restart-exit-div" class="hidden">
+            <button type="button" id="alone-game-restart" class="restart-exit-button">Начать заново</button>
+            <button type="button" id="alone-game-exit" class="restart-exit-button">Выйти из игры</button>
+        </div>
+    </div>
+
+    <div class="game-block sending-game" data-name="sending">
+        <p>Sending game: you search for the random number</p>
+        <div>
+            <input type="submit" id="sending-game-submit" class="submit" value="Запуск игры" >
+        </div>
+
+
+        <div id="sending-game-main-part" class="hidden">
+            <input type="text" id="superInput" name="example" placeholder="Введите число">
+            <input type="submit" id="superSubmit" class="submit" value="Отправить значение">
+        </div>
+
+        <div id="sending-game-restart-exit-div" class="hidden">
+            <button type="button" id="sending-game-restart" class="restart-exit-button">Начать заново</button>
+            <button type="button" id="sending-game-exit" class="restart-exit-button">Выйти из игры</button>
+        </div>
+    </div>
+
+    <div class="game-block guess-game" data-name="guess">
+        <p>Guess game: computer searches for the number chosen by you</p>
+        <div>
+            <input type="submit" id="guess-game-submit" class="submit" value="Запуск игры">
+        </div>
+
+        <div id="guess-game-main-part" class="hidden">
+            <div id="guess-game-request" class="guess-game-request">
+
+            </div>
+            <button type="button" id="superButtonLess" class="guess-game-button">Моё число меньше</button>
+            <button type="button" id="superButtonSame" class="guess-game-button">Да! Это моё число</button>
+            <button type="button" id="superButtonMore" class="guess-game-button">Моё число больше</button>
+        </div>
+
+        <div id="guess-game-restart-exit-div" class="hidden">
+            <button type="button" id="guess-game-restart" class="restart-exit-button">Начать заново</button>
+            <button type="button" id="guess-game-exit" class="restart-exit-button">Выйти из игры</button>
+        </div>
+    </div>
+
+    <div class="game-block krestik-nolik" data-name="krestik-nolik">
+        <p>Krestiki-Noliki game</p>
+        <div>
+            <input type="submit" id="krestik-nolik-game-submit" class="submit" value="Запуск игры">
+        </div>
+
+        <div id="krestik-nolik-game-main-part" class="hidden">
+
+        </div>
+
+        <div id="krestik-nolik-game-restart-exit-div" class="hidden">
+            <button type="button" id="krestik-nolik-game-restart" class="restart-exit-button">Начать заново</button>
+            <button type="button" id="krestik-nolik-game-exit" class="restart-exit-button">Выйти из игры</button>
+        </div>
+    </div>
+
+
+
+</form>
+
+</body>
+</html>
