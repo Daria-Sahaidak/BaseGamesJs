@@ -1,0 +1,8 @@
+{
+  "visibility": {
+    ".alone-game": true,
+    ".guess-game": true,
+    ".sending-game": true,
+    ".krestik-nolik-game": true
+  }
+}

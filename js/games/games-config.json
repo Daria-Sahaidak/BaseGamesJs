@@ -1,0 +1,33 @@
+{
+  "visibility": {
+    ".alone-game": true,
+    ".guess-game": true,
+    ".sending-game": true,
+    ".krestik-nolik-game": true,
+    ".memory-game": true
+  },
+  "alone-game": {
+    "max-number": 10000,
+    "game-type": "The computer searches for the number given by itself, counting the searching tryings",
+    "input-numbers" : 1
+  },
+  "sending-game": {
+    "max-number": 100,
+    "game-type": "The user is trying to guess the number given by the computer",
+    "input-numbers" : 3
+  },
+  "guess-game": {
+    "max-number": 50,
+    "game-type": "The computer is trying to guess the number given by the user",
+    "input-numbers" : 1
+  },
+  "krestik-nolik-game": {
+    "max-step-number": 9,
+    "game-type": "The basic game called 'Tic-Tac-Toe' for two players",
+    "input-numbers" : 9
+  },
+  "memory-game": {
+    "card-number": 8,
+    "cards" : ["a", "b", "d", "b", "c", "c", "d", "a"]
+  }
+}
