@@ -1,0 +1,68 @@
+/**{*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
+.game-block{
+    border: 1px solid darkblue;
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    /*float: left;*/
+}
+.alone-game-result, .guess-game-request {
+    margin: 10px;
+    margin-left: 0;
+}
+
+.guess-game-button{
+    margin-bottom: 5px;
+}
+.restart-exit-button{
+    margin-top: 5px;
+}
+.krestik-nolik-input, .memory-input{
+    width: 25px;
+    height: 25px;
+    /*margin-left: 2px;*/
+    /*margin-right: 2px;*/
+    margin: 2px;
+}
+.hidden{
+    display: none;
+}
+input[type="text"]{
+    border: 1px solid grey;
+}
+input[type="submit"], input[type="button"], button{
+    border: 1px solid grey;
+    background-color: transparent;
+    border-radius: 3px;
+    padding: 3px 7px;
+}
+.all-games{
+    float: left;
+    border: 1px solid pink;
+}
+.all-ads{
+    float: left;
+
+    margin-left: 20px;
+}
+
+.ad2, .ad1{
+    border: 1px solid pink;
+    margin-top: 10px;
+    width: 200px;
+    height: 200px;
+}
+.win-result{
+    border: 1px solid darkgreen;
+    margin-top: 10px;
+    width: 200px;
+    height: 200px;
+    float: left;
+    margin-left: 20px;
+}
+.memory-input{
+    color: transparent;
+}
