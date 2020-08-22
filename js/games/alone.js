@@ -1,17 +1,17 @@
 $(function () {
-    $("#alone-game-restart").click(aloneGameSubmit);
+    $("#alone-game-restart").click(aloneGameLaunch);
 
-    $("#alone-game-submit").click(aloneGameSubmit); 
+    $("#alone-game-launch-submit").click(aloneGameLaunch);
 
 
 });
 
-function aloneGameSubmit() {
+function aloneGameLaunch() {
     $("#alone-game-main-part").show();
-    $("#alone-game-submit").hide();
-    let x = Math.floor(Math.random()*100);
+    $("#alone-game-launch-submit").hide();
+    let x = Math.floor(Math.random()*generateMaxNumberCommon("alone-game"));
     let left = 0;
-    let right = 100;
+    let right = generateMaxNumberCommon("alone-game");
     let middle;
     let j = 0;
     while (middle !== x){

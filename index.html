@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
     <script
             src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
@@ -17,92 +18,56 @@
     <script src="js/games/sending.js"></script>
     <script src="js/games/guess.js"></script>
     <script src="js/games/krestiki-noliki.js"></script>
+    <script src="js/games/memory.js"></script>
+    <script src="js/basicjs/arrays.js"></script>
+    <script src="js/basicjs/function.js"></script>
+    <script src="js/basicjs/objects.js"></script>
 
-    <style>
-        .game-block{
-            border: 1px solid darkblue;
-            padding: 10px;
-            margin: 10px;
-            width: 200px;
-            /*float: left;*/
-        }
-        .alone-game-result, .guess-game-request {
-            margin: 10px;
-            margin-left: 0px;
-        }
 
-        .guess-game-button{
-            margin-bottom: 5px;
-        }
-        .restart-exit-button{
-            margin-top: 5px;
-        }
-        .krestik-nolik-input{
-            width: 25px;
-            height: 25px;
-            /*margin-left: 2px;*/
-            /*margin-right: 2px;*/
-            margin: 2px;
-        }
-        .hidden{
-            display: none;
-        }
-        input[type="text"]{
-            border: 1px solid grey;
-        }
-        input[type="submit"], input[type="button"], button{
-            border: 1px solid grey;
-            background-color: transparent;
-            border-radius: 3px;
-            padding: 3px 7px;
-        }
-
-    </style>
 </head>
-
 <body>
-<form>
+<div class="all-games">
 
-    <div class="game-block alone-game"  data-name="alone">
+    <div class="game-block alone-game hidden"  data-name="alone">
         <p>Alone game: computer searches for the random number</p>
         <div>
-            <input type="submit" id="alone-game-submit" class="submit" value="Запуск игры">
+            <input type="submit" id="alone-game-launch-submit" class="launch-submit submit" value="Запуск игры">
         </div>
 
-        <div id="alone-game-main-part" class="alone-game-result hidden">
+        <div id="alone-game-main-part" class="alone-game-result main-part hidden">
 
         </div>
-        <div id="alone-game-restart-exit-div" class="hidden">
+        <div id="alone-game-restart-exit-div" class="restart-exit-div hidden">
             <button type="button" id="alone-game-restart" class="restart-exit-button">Начать заново</button>
-            <button type="button" id="alone-game-exit" class="restart-exit-button click-exit">Выйти из игры</button>
+            <button type="button" id="alone-game-exit" class="restart-exit-button exit-button">Выйти из игры</button>
         </div>
     </div>
 
-    <div class="game-block sending-game" data-name="sending">
+    <div class="game-block sending-game hidden" data-name="sending">
         <p>Sending game: you search for the random number</p>
         <div>
-            <input type="submit" id="sending-game-submit" class="submit click-submit" value="Запуск игры" >
+            <input type="submit" id="sending-game-launch-submit" class="launch-submit submit" value="Запуск игры" >
         </div>
 
 
-        <div id="sending-game-main-part" class="hidden">
-            <input type="text" id="superInput" name="example" placeholder="Введите число">
-            <input type="submit" id="superSubmit" class="submit" value="Отправить значение">
+        <div id="sending-game-main-part" class="main-part hidden">
+            <input type="text" id="sending-game-input-for-your-try" name="example" placeholder="Введите число">
+            <input type="submit" id="sending-game-submit-for-your-try" class="submit" value="Отправить значение">
         </div>
 
-        <div id="sending-game-restart-exit-div" class="hidden">
+        <div id="sending-game-restart-exit-div" class="restart-exit-div hidden">
             <button type="button" id="sending-game-restart" class="restart-exit-button">Начать заново</button>
-            <button type="button" id="sending-game-exit" class="restart-exit-button click-exit">Выйти из игры</button>
+            <button type="button" id="sending-game-exit" class="restart-exit-button exit-button">Выйти из игры</button>
         </div>
     </div>
 
-    <div class="game-block guess-game" data-name="guess">
+    <div class="game-block guess-game hidden" data-name="guess">
         <p>Guess game: computer searches for the number chosen by you</p>
         <div>
-            <input type="submit" id="guess-game-submit" class="submit click-submit" value="Запуск игры">
+            <input type="submit" id="guess-game-launch-submit" class="launch-submit submit" value="Запуск игры">
         </div>
 
-        <div id="guess-game-main-part" class="hidden">
+        <div id="guess-game-main-part" class="main-part hidden">
             <div id="guess-game-request" class="guess-game-request">
 
             </div>
@@ -111,23 +76,23 @@
             <button type="button" id="superButtonMore" class="guess-game-button">Моё число больше</button>
         </div>
 
-        <div id="guess-game-restart-exit-div" class="hidden">
+        <div id="guess-game-restart-exit-div" class="restart-exit-div hidden">
             <button type="button" id="guess-game-restart" class="restart-exit-button">Начать заново</button>
-            <button type="button" id="guess-game-exit" class="restart-exit-button click-exit">Выйти из игры</button>
+            <button type="button" id="guess-game-exit" class="restart-exit-button exit-button">Выйти из игры</button>
         </div>
     </div>
 
-    <div class="game-block krestik-nolik" data-name="krestik-nolik">
+    <div class="game-block krestik-nolik-game hidden" data-name="krestik-nolik">
         <p>Krestiki-Noliki game</p>
         <div>
-            <input type="submit" id="krestik-nolik-game-submit" class="submit click-submit" value="Запуск игры">
+            <input type="submit" id="krestik-nolik-game-launch-submit" class="launch-submit submit" value="Запуск игры">
         </div>
 
-        <div id="krestik-nolik-game-main-part" class="hidden">
+        <div id="krestik-nolik-game-main-part" class="main-part hidden">
 
         </div>
 
-        <div id="krestik-nolik-game-restart-exit-div" class="hidden">
+        <div id="krestik-nolik-game-restart-exit-div" class="restart-exit-div hidden">
             <button type="button" id="krestik-nolik-game-restart" class="restart-exit-button">Начать заново</button>
             <button type="button" id="krestik-nolik-game-exit" class="restart-exit-button">Выйти из игры</button>
         </div>

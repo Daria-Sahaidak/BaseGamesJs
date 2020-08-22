@@ -1,18 +1,24 @@
 $(function () {
 
-    $("#guess-game-restart").click(function () {
-        left9 = 0;
-        right9 = 100;
-        num = Math.floor(Math.random()*100);
-        request(num);
-    });
+
+    let num, right9, left9;
+    let maxNumber;
 
     //  9: Я загадываю, компьютер отгадывает
-    let num = Math.floor(Math.random()*100);
-    let right9 = 100;
-    let left9 = 0;
+    function generateNumberGuess(){
+        maxNumber = config["guess-game"]["max-number"];
+        num = Math.floor(Math.random()*maxNumber);
+        right9 = maxNumber;
+        left9 = 0;
+        request(num);
+    }
 
-    request(num);
+    $("#guess-game-restart").click(function () {
+        generateNumberGuess();
+    });
+
+    $("#guess-game-launch-submit").click(generateNumberGuess);
+
 
     function random(left, right) {
         return Math.floor(Math.random()*(right - 1 - left) + left + 1);
