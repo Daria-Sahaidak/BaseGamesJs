@@ -23,19 +23,19 @@ $(function () {
     function random(left, right) {
         return Math.floor(Math.random()*(right - 1 - left) + left + 1);
     }
-    $("#superButtonLess").click( function () {
+    $("#guess-game-button-less").click( function () {
         right9 = num;
         num = random(left9, right9);
         request(num);
         return false;
     });
-    $("#superButtonMore").click( function (e) {
+    $("#guess-game-button-more").click( function (e) {
         left9 = num;
         num = random(left9, right9);
         request(num);
         return false;
     });
-    $("#superButtonSame").click( function () {
+    $("#guess-game-button-same").click( function () {
         request("Фух, наконец-то! Думал, что уже не угадаю");
         return false;
     });

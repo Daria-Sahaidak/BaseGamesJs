@@ -12,7 +12,7 @@ $(function () {
     transfer();
 
     $("#memory-game-launch-submit").click(function () {
-        memoryGameInterval(15);
+        memoryGameInterval(30);
     });
 
     // $.ajax({url:"data/games-config.json"}).done(function (data) {
@@ -84,6 +84,10 @@ function memoryGameShowTimeLeft(){
 }
 
 let cards = ["a", "b", "d", "b", "c", "c", "d", "a"];
+let cardsMatch = [false, false, false, false, false, false, false, false];
+let cardsOpened = [false, false, false, false, false, false, false, false];
+
+
 
 function transfer() {
     for (let j = 0; j < 8; j++){
@@ -92,37 +96,46 @@ function transfer() {
 }
 
 let countMemory = 0;
-let k;
-let m;
+let firstInput;
+let secondInput;
 let timer;
+let firstCard;
 function step(e) {
     $("#memory-game-request").html(" ");
-    countMemory++;
     let $input = $(e.target);
     let id = $input.attr("id");
-    let j = parseInt(id[12]) - 1;
+    let secondCard = parseInt(id[12]) - 1;
+    if (cardsMatch[secondCard]){
+        return;
+    }
+    countMemory++;
     $input.css("color", "black");
     if (countMemory % 2 === 1) {
-        k = $("#memoryInput-" + (j + 1) + "");
+        firstInput = $("#memoryInput-" + (secondCard + 1) + "");
+        firstCard = secondCard;
     }
     if (countMemory % 2 === 0){
-        m = $("#memoryInput-" + (j + 1) + "");
-        if (k.val() === m.val()){
-            k.css("background-color", "yellow");
-            m.css("background-color", "yellow");
+        secondInput = $("#memoryInput-" + (secondCard + 1) + "");
+        if (firstInput.val() === secondInput.val()){
+            firstInput.css("background-color", "yellow");
+            secondInput.css("background-color", "yellow");
             countMemory = 0;
+            cardsMatch[firstCard] = true;
+            cardsMatch[secondCard] = true;
         } else{
-            memoryGameTimer(k, m, 1000);
+            memoryGameTimer(firstCard, secondCard, 3000);
         }
     }
-    console.log(countMemory)
+    memoryGameCheckWin();
     cheer(function () {
         $("#memory-game-request").html("Нужно собраться!");
         countMemory = 0;
     });
 }
 
-function memoryGameTimer(element1, element2, time){
+function memoryGameTimer(card1, card2, time){
+    let element1 = $("#memoryInput-" + (card1 + 1) + "");
+    let element2 = $("#memoryInput-" + (card2 + 1) + "");
     timer = setTimeout(function(){
         element1.css("color", "transparent");
         element2.css("color", "transparent");
@@ -134,5 +147,22 @@ function memoryGameTimer(element1, element2, time){
 function cheer(callback) {
     if (countMemory === 8){
         callback();
+    }
+}
+
+function memoryGameCheckWin(){
+    console.log("ФУнкция вызывается");
+    let counter = 0;
+    for (let j = 0; j < 8; j++){
+        if (cardsMatch[j]) {
+        // if (getComputedStyle(document.getElementById("memoryInput-" + (j + 1))).backgroundColor === "yellow"){
+            counter++;
+            console.log("Wow:" + counter);
+        }
+    }
+
+    if (counter === 8) {
+        $("#memory-game-request").html("Вы выиграли!");
+        clearInterval(interval);
     }
 }
