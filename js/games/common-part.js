@@ -113,6 +113,7 @@ function onLaunch(e){
     gameName.find($(".launch-submit")).hide();
     gameName.find($(".restart-exit-div")).show();
     gameName.find($(".main-part")).show();
+    gameName.find($(".mode")).show();
 
     // $("#" + gameName + "-game-launch-submit").hide();
     // $("#" + gameName + "-game-restart-exit-div").show();
@@ -126,6 +127,7 @@ function onExit(e){
     gameName.find($(".launch-submit")).show();
     gameName.find($(".restart-exit-div")).hide();
     gameName.find($(".main-part")).hide();
+    gameName.find($(".mode")).hide();
     return false;
 }
 

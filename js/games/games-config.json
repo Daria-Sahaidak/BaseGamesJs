@@ -24,7 +24,9 @@
   "krestik-nolik-game": {
     "max-step-number": 9,
     "game-type": "The basic game called 'Tic-Tac-Toe' for two players",
-    "input-numbers" : 9
+    "input-numbers" : 9,
+    "quotes": ["Now or never", "Remember who you are", "Everyone has his own path", "Life is a journey", "Never look back", "Follow your heart"],
+    "game-mode": ["Два Игрока", "Один Игрок"]
   },
   "memory-game": {
     "card-number": 8,
